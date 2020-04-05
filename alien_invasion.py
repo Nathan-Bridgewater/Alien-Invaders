@@ -12,9 +12,12 @@ class AlienInvasion:
         pygame.init()
         # Create an instance of the settings class
         self.settings = Settings()
+        # Create an instance of a screen object using the attributes defined
+        # in the 'Settings' class and the set_mode function from pygame
         self.screen = pygame.display.set_mode(
             (self.settings.screen_width, self.settings.screen_height))
-
+        # Create an instance of ship, using the current game instance as
+        # The argument
         self.ship = Ship(self)
 
         pygame.display.set_caption('Alien Invasion')
@@ -22,6 +25,7 @@ class AlienInvasion:
     def run_game(self):
         """Start main loop for the game"""
         while True:
+            # Helper methods are not called from an instance
             self._check_events()
             self.ship.update()
             self._update_screen()
@@ -32,15 +36,23 @@ class AlienInvasion:
             if event.type == pygame.QUIT:
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RIGHT:
-                    self.ship.moving_right = True
-                elif event.key == pygame.K_LEFT:
-                    self.ship.moving_left = True
+                self._check_keydown_events(event)
             elif event.type == pygame.KEYUP:
-                if event.key == pygame.K_RIGHT:
-                    self.ship.moving_right = False
-                elif event.key == pygame.K_LEFT:
-                    self.ship.moving_left = False
+                self._check_keyup_events(event)
+
+    def _check_keydown_events(self, event):
+        if event.key == pygame.K_RIGHT:
+            self.ship.moving_right = True
+        elif event.key == pygame.K_LEFT:
+            self.ship.moving_left = True
+        elif event.key == pygame.K_q:
+            sys.exit()
+
+    def _check_keyup_events(self, event):
+        if event.key == pygame.K_RIGHT:
+            self.ship.moving_right = False
+        elif event.key == pygame.K_LEFT:
+            self.ship.moving_left = False
 
     def _update_screen(self):
         """Update images on the screen and flip to the new screen"""
