@@ -20,23 +20,19 @@ class Settings:
         self.bullets_allowed = 5
 
         # Alien settings
-        self.alien_speed = 1.0
         self.fleet_drop_speed = 10
-        # fleet direction of 1 = to the right, -1 to the left
-        self.fleet_direction = 1
+
 
         # How quickly the game speeds up
         self.speedup_scale = 1.1
 
-
-
     def initialise_dynamic_settings(self):
-            """Initialise settings that change through the game"""
-            self.ship_speed = 1.5
-            self.bullet_speed = 1.0
-            self.alien_speed = 1.0
-
-            # fleet_direction = 1
+        """Initialise settings that change through the game"""
+        self.ship_speed = 1.5
+        self.bullet_speed = 3.0
+        self.alien_speed = 1.0
+        # fleet direction of 1 represents right; -1 is left
+        self.fleet_direction = 1
 
     def increase_speed(self):
         """Increase the speed settings"""

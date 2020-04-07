@@ -9,6 +9,7 @@ from game_stats import GameStats
 from button import Button
 
 
+
 class AlienInvasion:
     """Overall class to manage game assets and behaviour."""
 
@@ -16,6 +17,7 @@ class AlienInvasion:
         """Initialise the game, create game resources """
         pygame.init()
         self.settings = Settings()
+        self.settings.initialise_dynamic_settings()
         self.screen = pygame.display.set_mode(
             (self.settings.screen_width, self.settings.screen_height))
 
@@ -94,6 +96,8 @@ class AlienInvasion:
         """Start a new game when player clicks play"""
         button_clicked = self.play_button.rect.collidepoint(mouse_pos)
         if button_clicked and not self.stats.game_active:
+            self.settings.increase_speed()
+            self.settings.initialise_dynamic_settings()
             self.stats.reset_stats()
             self.stats.game_active = True
 
@@ -130,6 +134,7 @@ class AlienInvasion:
             # Destroy existing bullets and create new fleet.
             self.bullets.empty()
             self._create_fleet()
+            self.settings.increase_speed()
 
 
     def _update_screen(self):
