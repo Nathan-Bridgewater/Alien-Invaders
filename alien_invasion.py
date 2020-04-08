@@ -49,7 +49,9 @@ class AlienInvasion:
         """Respond to keyboard and mouse."""
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                sys.exit()
+                if self.stats.high_score:
+                    self.sb.write_high_score(self.stats.high_score)
+                    sys.exit()
             elif event.type == pygame.KEYDOWN:
                 self._check_keydown_events(event)
             elif event.type == pygame.KEYUP:
@@ -68,6 +70,7 @@ class AlienInvasion:
         elif event.key == pygame.K_DOWN:
             self.ship.moving_down = True
         elif event.key == pygame.K_q:
+            self.sb.write_high_score(self.stats.high_score)
             sys.exit()
         elif event.key == pygame.K_SPACE:
             self._fire_bullet()
